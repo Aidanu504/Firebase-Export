@@ -83,8 +83,8 @@ function exportData(firebaseUrl, adminSdkPath) {
             }
             else {
                 // Iterate through the data to find the maximum landmark counts
-                Object.keys(data).forEach((objectId) => {
-                    const objectData = data[objectId];
+                Object.keys(data).forEach((firebaseKey) => {
+                    const objectData = data[firebaseKey];
                     const parsedPoseData = parsePoseData(objectData.poseData);
 
                     // Update the maximum landmark counts to their respective lengths
@@ -124,14 +124,14 @@ function exportData(firebaseUrl, adminSdkPath) {
                 const dataArray = [];
 
                 // Iterate through each object in the data 
-                Object.keys(data).forEach((objectId) => {
-                    const objectData = data[objectId];
+                Object.keys(data).forEach((firebaseKey) => {
+                    const objectData = data[firebaseKey];
                     // Parse the pose data
                     const parsedPoseData = parsePoseData(objectData.poseData);
 
                     // format non-landmark data
                     const formattedData = {
-                        objectId: objectId,
+                        firebaseKey: firebaseKey,
                         conjectureId: objectData.conjectureId !== undefined ? objectData.conjectureId : 'null',
                         frameRate: objectData.frameRate || 'null',
                         timeStamp: objectData.timestamp || 'null',
@@ -150,7 +150,7 @@ function exportData(firebaseUrl, adminSdkPath) {
 
                 // Define the CSV headers
                 const csvHeaders = [
-                    { id: 'objectId', title: 'objectId' },
+                    { id: 'firebaseKey', title: 'firebaseKey' },
                     { id: 'conjectureId', title: 'conjectureId' },
                     { id: 'frameRate', title: 'frameRate' },
                     { id: 'timeStamp', title: 'timeStamp' },
